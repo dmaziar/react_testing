@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../css/App.css';
 import Header from './Header';
 import Main from './Main';
@@ -10,8 +9,11 @@ function App() {
 		<div className="App">
 			<div>
 				<section className='todoapp'>
-					<Main />
-					<Footer />
+					<Header>
+						<Main />
+						<Footer />
+					</Header>
+					
 				</section>
 				<footer />
 			</div>

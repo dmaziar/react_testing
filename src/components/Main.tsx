@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from './Header';
 
 const Item = (props: { itemText: string}) =>{
 	return (
@@ -19,34 +20,15 @@ const List = (props: {items: string[]}) =>{
 				props.items.map((item, index) => {
 					return <Item key={index} itemText={item} />;
 				})
-					
 			}
 		</ul>
 	);
 };
 
-
 export default function Main() {
-	let test: string[] = [];
-	const [todoItems, setTodoItem]= useState(test);
-	return (
-		<>
-			<header className="App-header">
-				<h1>Todos</h1>
-				<input 
-					className="new-todo" 
-					placeholder="What needs to be done?" 
-					type="text"
-					onKeyUp={(e) =>{
-						const element = e.currentTarget as HTMLInputElement;
-						let value = element.value;
-						if(e.key === 'Enter') {
-							setTodoItem([...todoItems, value]);
-							e.currentTarget.value ='';
-						}
-					}}
-				/>
-			</header>
+	const items = useContext(TodoContext);
+	if (items.length !== 0) {
+		return (
 			<section className='main'>
 				<input 
 					id="toggle-all" 
@@ -54,11 +36,10 @@ export default function Main() {
 					type="checkbox" 
 				/>
 				<label htmlFor="toggle-all">
-				
+					
 				</label>
-				<List items={todoItems}/>
-			
+				<List items={items}/>
 			</section>
-		</>
-	);
+		);
+	} else return null;
 }
